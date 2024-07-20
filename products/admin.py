@@ -7,9 +7,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "owner",
-        "title",
+        "name",
         "model",
         "release_date",
     )
-    list_filter = ("owner", "title",)
-    search_fields = ("title",)
+    list_filter = ("owner", "name",)
+    search_fields = ("name",)

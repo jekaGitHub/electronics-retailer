@@ -2,7 +2,7 @@ from django.db import models
 
 from config import settings
 
-NULLABLE = {"blank": True, "null": True}
+from suppliers.models import NULLABLE, Supplier
 
 
 class Product(models.Model):
@@ -14,6 +14,14 @@ class Product(models.Model):
         **NULLABLE,
         verbose_name="Владелец продукта",
         help_text="Укажите владельца продукта"
+    )
+
+    supplier = models.ForeignKey(
+        Supplier,
+        on_delete=models.CASCADE,
+        related_name='products',
+        verbose_name='Звено сети',
+        **NULLABLE
     )
 
     name = models.CharField(max_length=255, verbose_name='Название продукта', help_text='Введите название продукта')
