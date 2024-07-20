@@ -3,12 +3,13 @@ from rest_framework.permissions import IsAuthenticated
 
 from products.models import Product
 from products.serializers import ProductSerializer
+from users.permissions import IsOwner
 
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def perform_create(self, serializer):
         """Создание продукта и автоматическое добавление владельца к продукту."""

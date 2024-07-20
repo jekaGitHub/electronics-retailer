@@ -4,12 +4,13 @@ from rest_framework.filters import SearchFilter
 
 from suppliers.models import Supplier
 from suppliers.serializers import SupplierSerializer
+from users.permissions import IsOwner
 
 
 class SupplierViewSet(ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
     filter_backends = [SearchFilter]
     search_fields = ['country']
 
