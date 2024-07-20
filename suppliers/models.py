@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
 
+from config import settings
+
 NULLABLE = {"blank": True, "null": True}
 
 
 class Supplier(models.Model):
-    """Модель поставщика торговой сети электроники."""
+    """Модель звена торговой сети электроники."""
 
     LEVEL_CHOICES = [
         (0, 'Завод'),
@@ -34,6 +36,14 @@ class Supplier(models.Model):
         verbose_name='Задолженность перед поставщиком'
     )
     created_at = models.DateTimeField(default=timezone.now, verbose_name='Время создания')
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        **NULLABLE,
+        verbose_name="Владелец звена сети",
+        help_text="Укажите владельца звена сети"
+    )
 
     def __str__(self):
         return self.name
